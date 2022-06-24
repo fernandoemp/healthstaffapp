@@ -1,0 +1,28 @@
+
+@import './../../custom-styles.scss';
+
+.sidenav{
+    background-color: $background-sidebar;
+    height: 100%;
+    margin-top: 0;
+    padding-top: 0;
+}
+span, mat-icon{
+    color:white;
+}
+.active-link{
+    background-color: white;
+    // padding: 2rem;
+}
+.active-link .nav-caption{
+    color:black;
+}
+.active-link mat-icon{
+    color: black;
+}
+
+.active-link:hover{
+    background-color: white !important;
+    // padding: 2rem;
+}
+

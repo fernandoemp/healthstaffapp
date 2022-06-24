@@ -1,0 +1,97 @@
+<div fxLayout="row" class="container fadeIn">
+    <app-sidenav fxHide.lt-sm class="sidenav" fxFlex="25" fxFlex.gt-sm="20"></app-sidenav>
+    <div fxLayout="column" class="managment" fxFlex>
+        <span class="titleSection">CARE SCHEDULE</span>
+        <div class="content">
+            <div fxLayout fxLayoutGap="2%" fxLayout.lt-sm="column">
+                <mat-form-field>
+                    <mat-label>Filter by room</mat-label>
+                    <input matInput (keyup)="applyFilter(inputId.value)" #inputId>
+                </mat-form-field>
+                <!-- <mat-form-field>
+                    <mat-label>Filter by bed</mat-label>
+                    <input matInput (keyup)="applyFilter(inputName.value)" #inputName>
+                </mat-form-field>
+               -->
+                    <mat-label>Show next controls (60 minutes)</mat-label>
+                    <mat-checkbox #checkBox [(ngModel)]="test"></mat-checkbox>
+            </div>
+
+            <div fxLayout fxLayoutAlign="start center" *ngIf="!loading" class="options">
+                <button mat-button class="dark-button" (click)="addProduct()">New</button>
+            </div>
+            <app-loading fxLayoutAlign="center center" *ngIf="loading"></app-loading>
+            <div class="scroll table-container" *ngIf="!loading">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+                    <!-- <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> ID </th>
+                        <td mat-cell *matCellDef="let element"> {{element.id}}
+                        </td>
+                    </ng-container> -->
+                    <!-- <ng-container matColumnDef="firstName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Name</th>
+                        <td mat-cell *matCellDef="let element"> {{element.firstName | titlecase}} </td>
+                    </ng-container> -->
+                    <ng-container matColumnDef="hospitalRoom">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Room </th>
+                        <td mat-cell *matCellDef="let element"> {{element.hospitalRoom }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="hospitalBed">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Bed </th>
+                        <td mat-cell *matCellDef="let element"> {{element.hospitalBed }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="lastName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Last Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.lastName | titlecase}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="attetionHour">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Attention Hour </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div *ngFor="let hour of element.attentionHours"> {{hour.attentionHour }}</div>
+                        </td>
+                    </ng-container>
+
+                    <!-- 
+            <ng-container matColumnDef="category">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Categoria
+              </th>
+              <td mat-cell *matCellDef="let element"> {{element.category.name |
+                titlecase}} </td>
+            </ng-container>
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Descripcion
+              </th>
+              <td mat-cell *matCellDef="let element"> {{element.description |
+                titlecase}} </td>
+            </ng-container> -->
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef> </th>
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-icon-button class="dark-button btn-option">
+                                <mat-icon>visibility</mat-icon>
+                            </button>
+                            <button mat-icon-button class="dark-button btn-option" (click)="updateProduct(element)">
+                                <mat-icon fontSet="fas" fontIcon="fa-pen"></mat-icon>
+                            </button>
+                            <button mat-icon-button class="dark-button btn-option" (click)="deleteProduct(element)">
+                                <mat-icon fontSet="far" fontIcon="fa-trash-alt"></mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row class="header" *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No matches found
+                    </tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+
+    </div>
+</div>

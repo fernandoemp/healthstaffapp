@@ -1,0 +1,12 @@
+<mat-nav-list class="sidenav"> 
+    <a mat-list-item [routerLink]="['/home']" routerLinkActive="active-link" (click)="onSidenavClose()">
+        <mat-icon fxLayoutAlign="center center">person</mat-icon><span class="nav-caption"> Patients</span>
+    </a>
+    <a mat-list-item [routerLink]="['/care-schedule']" routerLinkActive="active-link" (click)="onSidenavClose()">
+        <mat-icon fxLayoutAlign="center center" >watch_later</mat-icon><span class="nav-caption"> Care Schedule</span>
+    </a>
+    <a  mat-list-item [routerLink]="['/analitycs/category','MLA1000']" routerLinkActive="active-link" (click)="onSidenavClose()">
+        <mat-icon fxLayoutAlign="center center" fontSet="fas" fontIcon="fa-chart-bar"></mat-icon><span class="nav-caption">Vital Sign</span>   
+    </a>
+  
+</mat-nav-list>

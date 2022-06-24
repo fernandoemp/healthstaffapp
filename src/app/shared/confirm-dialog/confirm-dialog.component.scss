@@ -1,0 +1,32 @@
+.mat-dialog-content{white-space:pre;}
+
+.box{
+  background-color: #424242;
+  color: #ffffff;
+
+  .text{
+    font-size: 14;
+    font-weight: bold;
+  }
+  .btn{
+    background-color: #222 !important;
+    color: white;
+
+}
+.btn-save{
+    background-color: #222 !important;
+    color: white;
+  }
+
+  .btn-save:disabled{
+    color: white;
+    background-color:rgb(77, 54, 54) !important;
+    transform: none !important;
+  }
+
+  .btn-save:hover:enabled{
+    transform: scale(1.02);
+  }
+}
+
+

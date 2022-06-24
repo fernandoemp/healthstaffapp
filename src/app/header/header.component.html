@@ -1,0 +1,31 @@
+<mat-toolbar class="header">
+    <mat-toolbar-row fxLayoutGap="2%" fxLayoutAlign="space-between center" class="firstRow">
+        <div>
+            <a ><mat-icon fontSet="fas"
+                    fontIcon="fa-chart-line"></mat-icon><span fxHide.lt-sm>
+                    Dashboard</span></a>
+        </div>
+        <div fxHide.gt-xs>
+            <button mat-icon-button (click)="onToggleSidenav()">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar-row>
+    <mat-toolbar-row fxLayout fxHide.lt-sm fxLayoutAlign="space-between center" *ngIf="userService.isUserLoggedIn" class="secondRow">
+        <ul fxLayout fxLayoutGap="3%" class="navigation-items"
+            fxLayoutAlign="center center">
+            <li>
+                <a fxLayoutAlign="center center" [routerLink]="['management']" *ngIf="userService.isUserLoggedIn"><mat-icon>home</mat-icon></a>
+            </li>
+        </ul>
+        <ul fxLayout fxLayoutAlign="center center" 
+            class="navigation-items">
+            <li fxLayoutAlign="center center">
+                <a class="logout" mat-flat-button [matMenuTriggerFor]="afterMenu" fxLayoutAlign="center center" *ngIf="userService.isUserLoggedIn"><mat-icon>person</mat-icon><span>{{userService.username}}</span><mat-icon>more_vert</mat-icon></a>
+                <mat-menu #afterMenu="matMenu" xPosition="after">
+                    <button mat-menu-item  (click)="userService.userLogout()" *ngIf="userService.isUserLoggedIn">Logout</button>
+                </mat-menu>
+            </li>
+        </ul>
+    </mat-toolbar-row>
+</mat-toolbar>

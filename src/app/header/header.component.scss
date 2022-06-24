@@ -1,0 +1,36 @@
+@import './../../custom-styles.scss';
+// .header{
+//     // background-color: rgba(59, 38, 38, 0.925);
+//     // background-color: rgba(24, 0, 13, 0.747);
+// }
+
+
+a {
+    color: white;
+}
+a:hover, a:active{
+    color: lightgray;
+}
+.navigation-items{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+@media(max-width: 959px){
+    mat-toolbar{
+        border-radius: 0px;
+    }
+}
+
+.logout{
+    margin-right: 1.2rem;
+    background-color: $button-logout;
+}
+.firstRow{
+    background-color: $background-header-row1;
+}
+
+.secondRow{
+    background-color: $background-header-row2;
+}

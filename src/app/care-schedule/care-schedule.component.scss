@@ -1,0 +1,60 @@
+@import "./../../custom-styles.scss";
+
+.table-container {
+  margin-top: 0.05rem;
+}
+
+table {
+  width: 100%;
+}
+
+.header {
+  background-color: #222;
+}
+
+.column {
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 20%;
+}
+
+.dark-button {
+  background-color: rgba(76, 142, 151, 0.527);
+  color: rgb(0, 0, 0);
+}
+
+.managment {
+  // padding: 0.5rem;
+  box-sizing: border-box;
+  overflow-x: scroll;
+}
+
+.titleSection {
+  background-color: $background-title-section;
+  padding: $size-title-section;
+  color: #fff;
+  font-size: $font-size-title-section;
+  font-weight: bold;
+}
+
+.content {
+  padding: 0.5rem;
+}
+
+.scroll {
+  overflow-x: scroll;
+}
+
+.btn-option:hover {
+  transform: scale(1.02);
+}
