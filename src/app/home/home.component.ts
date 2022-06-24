@@ -91,27 +91,28 @@ export class HomeComponent implements OnInit {
   }
 
   addProduct() {
-    let product = new Patient();
-    const dialogRef = this.dialog.open(PatientDialogComponent, {
-      disableClose: true, panelClass: 'custom-container-equals-border-radius',
-      data: { title: 'Add Patient', product: product, update: false },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      // if (result !== undefined) {
-      //   this.categories.forEach((element) => {
-      //     if (element.id == result.product.category.id) {
-      //       result.product.category.name = element.name;
-      //     }
-      //   });
-      //   Object.assign(product, result.product);
-      //   this.openConfirmDialog(
-      //     result.product,
-      //     'Agregar el siguiente producto?',
-      //     `Nombre: ${result.product.name} \nCategoria:  ${(result.product.category?.name).toUpperCase() } \nPrecio: $${result.product.price} \nStock: ${result.product.stock} \nDescripcion: ${result.product.description}`,
-      //     1
-      //   );
-      // }
-    });
+    // let product = new Patient();
+    // const dialogRef = this.dialog.open(PatientDialogComponent, {
+    //   disableClose: true, panelClass: 'custom-container-equals-border-radius',
+    //   data: { title: 'Add Patient', product: product, update: false },
+    // });
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   // if (result !== undefined) {
+    //   //   this.categories.forEach((element) => {
+    //   //     if (element.id == result.product.category.id) {
+    //   //       result.product.category.name = element.name;
+    //   //     }
+    //   //   });
+    //   //   Object.assign(product, result.product);
+    //   //   this.openConfirmDialog(
+    //   //     result.product,
+    //   //     'Agregar el siguiente producto?',
+    //   //     `Nombre: ${result.product.name} \nCategoria:  ${(result.product.category?.name).toUpperCase() } \nPrecio: $${result.product.price} \nStock: ${result.product.stock} \nDescripcion: ${result.product.description}`,
+    //   //     1
+    //   //   );
+    //   // }
+    // });
+    this.router.navigate(['patient']);
   }
 
   updateProduct(patient: Patient) {

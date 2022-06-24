@@ -23,6 +23,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatButtonToggleModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTabsModule
   ],
   exports: [
     FlexLayoutModule,
@@ -69,7 +72,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatButtonToggleModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTabsModule
   ]
 })
 export class AngularMaterialModule { }

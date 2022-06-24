@@ -19,6 +19,7 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
 import { LoadingComponent } from './shared/loading/loading.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { CareScheduleComponent } from './care-schedule/care-schedule.component';
+import { ManageArrayDialogComponent } from './shared/manage-array-dialog/manage-array-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { CareScheduleComponent } from './care-schedule/care-schedule.component';
     PatientDialogComponent,
     ConfirmDialogComponent,
     LoadingComponent,
-    CareScheduleComponent
+    CareScheduleComponent,
+    ManageArrayDialogComponent
   ],
   imports: [
     AngularMaterialModule,
@@ -44,7 +46,7 @@ import { CareScheduleComponent } from './care-schedule/care-schedule.component';
     HttpClientModule,
     ToastrModule.forRoot(),
     ReactiveFormsModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
