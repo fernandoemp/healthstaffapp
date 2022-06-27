@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Patient } from '../core/classes/patient.class';
 import { PatientService } from '../core/services/patient.service';
 import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
+import { ManageArrayDialogComponent } from '../shared/manage-array-dialog/manage-array-dialog.component';
 import { PatientDialogComponent } from '../shared/patient-dialog/patient-dialog.component';
 
 @Component({
@@ -29,20 +30,17 @@ export class CareScheduleComponent implements OnInit {
   loading: boolean;
   test: any;
   myForm = this._fb.group({
-    hospitalBed: ['', ],
-    hospitalRoom: ['', ],
-    check: ['', ]
+    hospitalBed: ['',],
+    hospitalRoom: ['',],
+    check: ['',]
     // stock: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
     // categorySelected: ['', [Validators.required]],
     // description: ['', [Validators.required]]
   });
 
-  
-
-
   constructor(
-    private _patientService: PatientService,
-    public dialog: MatDialog, private _toastr: ToastrService, private _fb: FormBuilder
+    private patientService: PatientService,
+    public matDialog: MatDialog, private _toastr: ToastrService, private _fb: FormBuilder
   ) {
     this.displayedColumns = [
       // "id",
@@ -51,7 +49,7 @@ export class CareScheduleComponent implements OnInit {
       "hospitalBed",
       "lastName",
       "attetionHour",
-      
+
 
 
       // 'stock',
@@ -65,11 +63,10 @@ export class CareScheduleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllProducts();
-    // this.getAllCategories();
+    this.getAllPatients();
   }
 
-  getAllProducts() {
+  getAllPatients() {
     // this.productsSubscription = this._patientService.getAllProducts().subscribe(
     //   (response: any) => {
     //     // console.log(JSON.stringify(response));
@@ -82,10 +79,8 @@ export class CareScheduleComponent implements OnInit {
     //     console.log(error);
     //   }
     // );
-    console.log(JSON.stringify(this._patientService.initPatients()));
-    this.dataSource = new MatTableDataSource(this._patientService.initPatients());
-
-            this.loading = false;
+    this.dataSource = new MatTableDataSource(this.patientService.getAllPatients());
+    this.loading = false;
 
 
   }
@@ -107,7 +102,7 @@ export class CareScheduleComponent implements OnInit {
 
   addProduct() {
     let product = new Patient();
-    const dialogRef = this.dialog.open(PatientDialogComponent, {
+    const dialogRef = this.matDialog.open(PatientDialogComponent, {
       disableClose: true, panelClass: 'custom-container-equals-border-radius',
       data: { title: 'Add Hour', product: product, update: false },
     });
@@ -129,24 +124,29 @@ export class CareScheduleComponent implements OnInit {
     });
   }
 
-  updateProduct(patient: Patient) {
-    const dialogRef = this.dialog.open(PatientDialogComponent, {
+  update(patient: Patient) {
+    const dialogRef = this.matDialog.open(ManageArrayDialogComponent, {
       disableClose: true, panelClass: 'custom-container-equals-border-radius',
-      data: { title: 'Modify Houw', patient: patient, update: true },
+      data: { title: 'Attention Hours', array: patient.attentionHours, update: false, hasElements: !!patient.attentionHours.length ? true : false },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      if (result !== undefined) {
-        this.openConfirmDialog(
-          result.patient,
-          'Do you want to modify the next patient?',
-          `Id: ${result.product.id} \nName: ${result.patient.name} \nCategoria: ${result.product.category?.name} \nPrecio: $${result.product.price} \nStock: ${result.product.stock} \nDescripcion: ${result.product.description}`,
-          2
-        );
+      if (result != undefined) {
+        let patients = this.patientService.getAllPatients();
+        let index = patients.findIndex(x => x.id == patient.id);
+        console.log(index)
+        patient.attentionHours = result;
+        if (index != -1) {
+          patients.splice(index, 1, patient);
+          console.log(patients)
+          this.patientService.updatePatients(patients);
+        }
+        this.getAllPatients();
       }
     });
+
   }
 
-  deleteProduct(patient: Patient) {
+  delete(patient: Patient) {
     this.openConfirmDialog(
       patient,
       'Do you want to delete the next hour?',
@@ -161,7 +161,7 @@ export class CareScheduleComponent implements OnInit {
     content: string,
     option: number
   ): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true, panelClass: 'custom-container-equals-border-radius',
       data: { title: title, content: content },
     });
@@ -204,23 +204,5 @@ export class CareScheduleComponent implements OnInit {
         // }
       }
     });
-  }
-
-  getAllCategories() {
-    // this.categoriesSubscription = this._patientService
-    //   .getCategoriesProducts()
-    //   .subscribe(
-    //     (response: any) => {
-    //       this.categories = response;
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     }
-    //   );
-  }
-
-  ngOnDestroy(): void {
-    // this.productsSubscription.unsubscribe();
-    // this.categoriesSubscription.unsubscribe();
   }
 }

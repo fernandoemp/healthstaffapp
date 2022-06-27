@@ -13,13 +13,14 @@
                     <input matInput (keyup)="applyFilter(inputName.value)" #inputName>
                 </mat-form-field>
                -->
-                    <mat-label>Show next controls (60 minutes)</mat-label>
-                    <mat-checkbox #checkBox [(ngModel)]="test"></mat-checkbox>
+                <mat-label>Show next controls (60 minutes)</mat-label>
+                <mat-checkbox #checkBox [(ngModel)]="test"></mat-checkbox>
             </div>
 
-            <div fxLayout fxLayoutAlign="start center" *ngIf="!loading" class="options">
+            <br>
+            <!-- <div fxLayout fxLayoutAlign="start center" *ngIf="!loading" class="options">
                 <button mat-button class="dark-button" (click)="addProduct()">New</button>
-            </div>
+            </div> -->
             <app-loading fxLayoutAlign="center center" *ngIf="loading"></app-loading>
             <div class="scroll table-container" *ngIf="!loading">
                 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
@@ -71,13 +72,13 @@
                     <ng-container matColumnDef="actions">
                         <th mat-header-cell *matHeaderCellDef> </th>
                         <td mat-cell *matCellDef="let element">
-                            <button mat-icon-button class="dark-button btn-option">
+                            <button mat-icon-button class="dark-button btn-option" (click)="update(element)">
                                 <mat-icon>visibility</mat-icon>
                             </button>
-                            <button mat-icon-button class="dark-button btn-option" (click)="updateProduct(element)">
+                            <!-- <button mat-icon-button class="dark-button btn-option">
                                 <mat-icon fontSet="fas" fontIcon="fa-pen"></mat-icon>
-                            </button>
-                            <button mat-icon-button class="dark-button btn-option" (click)="deleteProduct(element)">
+                            </button> -->
+                            <button mat-icon-button class="dark-button btn-option" (click)="delete(element)">
                                 <mat-icon fontSet="far" fontIcon="fa-trash-alt"></mat-icon>
                             </button>
                         </td>

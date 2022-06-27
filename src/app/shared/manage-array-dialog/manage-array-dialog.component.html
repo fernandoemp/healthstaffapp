@@ -8,8 +8,8 @@
       <table class="table table-bordered" formArrayName="array">
         <tr *ngFor="let quantity of getArray().controls; let i=index" [formGroupName]="i">
           <td>
-            <input matInput type="time" id="appt" name="appt" min="00:00" max="24:00"  autocomplete="true" name="attentionHour"
-              [(ngModel)]="values[i]" formControlName="attentionHour">
+            <input matInput type="time" id="appt" name="appt" min="00:00" max="24:00" autocomplete="true"
+              name="attentionHour" [(ngModel)]="values[i]" formControlName="attentionHour">
           </td>
           <td>
             <button mat-button class="btn" (click)="removeQuantity(i)">Remove</button>
@@ -21,18 +21,14 @@
         <button mat-button class="btn" (click)="addElement()" class="btn btn-primary">Add</button>
       </div>
       <div mat-dialog-actions>
-        <button class="btn-save" mat-button (click)="save()" [disabled]="myForm.invalid">Guardar
+        <button class="btn-save" mat-button (click)="save()" [disabled]="myForm.invalid">Save
         </button>
-        <button class="btn" mat-button [mat-dialog-close]="{ 'confirm': false}">Cancelar
+        <button class="btn" mat-button (click)="cancel()">Cancel
         </button>
       </div>
     </mat-card-content>
-
-
     <!-- <button type="submit" class="btn btn-success">Submit</button> -->
-
   </form>
-
-  <br />
-  {{this.myForm.value | json}}
+  <!-- <br /> -->
+  <!-- {{this.myForm.value | json}} -->
 </mat-card>

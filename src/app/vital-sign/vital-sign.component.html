@@ -1,7 +1,7 @@
 <div fxLayout="row" class="container fadeIn">
     <app-sidenav fxHide.lt-sm class="sidenav" fxFlex="25" fxFlex.gt-sm="20"></app-sidenav>
     <div fxLayout="column" class="managment" fxFlex>
-        <span class="titleSection">PATIENTS</span>
+        <span class="titleSection">Vital Signs</span>
         <div class="content">
             <div fxLayout fxLayoutGap="2%" fxLayout.lt-sm="column">
                 <mat-form-field>
@@ -73,12 +73,12 @@
                     <ng-container matColumnDef="actions">
                         <th mat-header-cell *matHeaderCellDef> </th>
                         <td mat-cell *matCellDef="let element">
-                            <button mat-icon-button class="dark-button btn-option"  (click)="update(element)">
+                            <button mat-icon-button class="dark-button btn-option">
                                 <mat-icon>visibility</mat-icon>
                             </button>
-                            <!-- <button mat-icon-button class="dark-button btn-option">
+                            <button mat-icon-button class="dark-button btn-option" (click)="update(element)">
                                 <mat-icon fontSet="fas" fontIcon="fa-pen"></mat-icon>
-                            </button> -->
+                            </button>
                             <button mat-icon-button class="dark-button btn-option" (click)="delete(element)">
                                 <mat-icon fontSet="far" fontIcon="fa-trash-alt"></mat-icon>
                             </button>

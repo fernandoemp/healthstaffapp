@@ -5,20 +5,17 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
 import { Patient } from '../core/classes/patient.class';
 import { LocalStorageService } from '../core/services/local-storage.service';
 import { PatientService } from '../core/services/patient.service';
 import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
-import { PatientDialogComponent } from '../shared/patient-dialog/patient-dialog.component';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-vital-sign',
+  templateUrl: './vital-sign.component.html',
+  styleUrls: ['./vital-sign.component.scss']
 })
-export class HomeComponent implements OnInit {
-
+export class VitalSignComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
@@ -93,26 +90,7 @@ export class HomeComponent implements OnInit {
   }
 
   add() {
-    // const dialogRef = this.dialog.open(PatientDialogComponent, {
-    //   disableClose: true, panelClass: 'custom-container-equals-border-radius',
-    //   data: { title: 'Add Patient', product: product, update: false },
-    // });
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   // if (result !== undefined) {
-    //   //   this.categories.forEach((element) => {
-    //   //     if (element.id == result.product.category.id) {
-    //   //       result.product.category.name = element.name;
-    //   //     }
-    //   //   });
-    //   //   Object.assign(product, result.product);
-    //   //   this.openConfirmDialog(
-    //   //     result.product,
-    //   //     'Agregar el siguiente producto?',
-    //   //     `Nombre: ${result.product.name} \nCategoria:  ${(result.product.category?.name).toUpperCase() } \nPrecio: $${result.product.price} \nStock: ${result.product.stock} \nDescripcion: ${result.product.description}`,
-    //   //     1
-    //   //   );
-    //   // }
-    // });
+ 
     let patient = new Patient();
 
     let id = this.localStorageService.getItem("patientId");
@@ -123,20 +101,6 @@ export class HomeComponent implements OnInit {
   }
 
   update(patient: Patient) {
-    // const dialogRef = this.dialog.open(PatientDialogComponent, {
-    //   disableClose: true, panelClass: 'custom-container-equals-border-radius',
-    //   data: { title: 'Modify Patient', patient: patient, update: true },
-    // });
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   if (result !== undefined) {
-    //     this.openConfirmDialog(
-    //       result.patient,
-    //       'Do you want to modify the next patient?',
-    //       `Id: ${result.product.id} \nName: ${result.patient.name} \nCategoria: ${result.product.category?.name} \nPrecio: $${result.product.price} \nStock: ${result.product.stock} \nDescripcion: ${result.product.description}`,
-    //       2
-    //     );
-    //   }
-    // });
     this.localStorageService.setItem('selectedPatient', patient);
     this.router.navigate(['patient']);
   }
@@ -216,10 +180,5 @@ export class HomeComponent implements OnInit {
 
   goToHours() {
     this.router.navigate(['care-schedule']);
-  }
-
-  ngOnDestroy(): void {
-    // this.productsSubscription.unsubscribe();
-    // this.categoriesSubscription.unsubscribe();
   }
 }

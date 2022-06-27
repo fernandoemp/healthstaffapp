@@ -16,7 +16,6 @@ table {
   color: #fff;
   font-size: 0.9rem;
   font-weight: bold;
-text-align: center;
 }
 
 .mat-form-field {
@@ -58,4 +57,9 @@ th {
 
 .btn-option:hover {
   transform: scale(1.02);
+}
+
+.btn {
+  color: #fff;
+  background-color: #222;
 }

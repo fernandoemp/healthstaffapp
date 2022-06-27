@@ -1,49 +1,75 @@
-.mat-dialog-content{white-space:pre;}
+.mat-dialog-content {
+  white-space: pre;
+}
 
-.box{
-    min-width: 17rem;
-    background-color: #424242;
-    color: white;
-    height: 100vh;
+.box {
+  min-width: 17rem;
+  background-color: #424242;
+  color: white;
+  height: 110vh;
+
+  .container {
+    height: 110vh;
+  }
 
 }
-input, mat-label, mat-select, textarea, mat-input{
+
+input,
+mat-label,
+mat-select,
+textarea,
+mat-input {
   color: rgb(177, 144, 144);
 }
+
 input:disabled {
   color: rgb(177, 144, 144);
 }
-::ng-deep .mat-select-value{
+
+::ng-deep .mat-select-value {
   color: rgb(177, 144, 144);
 }
 
-.dark-button{
-    background-color: #222;
-    color: #fff
+.dark-button {
+  background-color: #222;
+  color: #fff
 }
-mat-label,textarea,input{
-    font-size: 1rem;
+
+mat-label,
+textarea,
+input {
+  font-size: 1rem;
 }
-.btn{
-    background-color: #222 !important;
-    color: white;
+
+.btn {
+  background-color: #222 !important;
+  color: white;
 
 }
-.btn-save{
-    background-color: #222 !important;
-    color: white;
-  }
 
-  .btn-save:disabled{
-    color: white;
-    background-color:rgb(77, 54, 54) !important;
-    transform: none !important;
-  }
 
-  .btn-save:hover:enabled{
-    transform: scale(1.02);
-  }
+.btn-save:disabled {
+  color: white;
+  background-color: rgb(77, 54, 54) !important;
+  transform: none !important;
+}
 
-  .dialog{
-    background-color: #424242;
-  }
+.btn-save:hover:enabled {
+  transform: scale(1.02);
+}
+
+.dialog {
+  background-color: #424242;
+}
+
+.actions {
+  margin-top: 3vw;
+}
+
+.action-hours {
+  margin-top: 2vw;
+}
+
+.tab2 {
+  height: 100vw;
+}

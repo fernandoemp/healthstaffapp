@@ -16,7 +16,8 @@ export class PatientService {
   }
 
   initPatients() {
-    this.localStorageService.setItem("patients", [{ id: 0, firstName: "Fernando Emanuel", lastName: "Murguia Pizarro", hospitalRoom: "S7", hospitalBed: "25", vitalSigns: [{ id: 0, bloodPressure: "20 to 30", breathing: "80", pulse: "50", temperature: "30", observation: "" } as VitalSign], attentionHours: [{ id: 0, attentionHour: "00:00:00" } as AttentionHour, { id: 1, attentionHour: "06:00:00" } as AttentionHour, { id: 2, attentionHour: "10:00:00" } as AttentionHour, { id: 3, attentionHour: "16:00:00" } as AttentionHour, { id: 4, attentionHour: "20:00:00" } as AttentionHour] } as Patient]);
+    console.log('initPatients')
+    this.localStorageService.setItem("patients", [{ id: 0, firstName: "Fernando Emanuel", lastName: "Murguia Pizarro", identityCardNumber: 39200693, hospitalRoom: "7", hospitalBed: "25", vitalSigns: [{ id: 0, bloodPressure: "20 to 30", breathing: "80", pulse: "50", temperature: "30", observation: "" } as VitalSign], attentionHours: [{ id: 0, attentionHour: "00:00" } as AttentionHour, { id: 1, attentionHour: "06:00" } as AttentionHour, { id: 2, attentionHour: "10:00" } as AttentionHour, { id: 3, attentionHour: "16:00" } as AttentionHour, { id: 4, attentionHour: "20:00" } as AttentionHour] } as Patient]);
     return this.localStorageService.getItem("patients");
   }
 
@@ -31,6 +32,9 @@ export class PatientService {
   }
 
   getPatient(id: number) {
+  }
 
+  updatePatients(patients: Patient[]) {
+    this.localStorageService.setItem("patients", patients);
   }
 }

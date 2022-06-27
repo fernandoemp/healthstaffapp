@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AttentionHour } from 'src/app/core/classes/attetion-hour.class';
@@ -11,18 +11,43 @@ import { AttentionHour } from 'src/app/core/classes/attetion-hour.class';
 export class ManageArrayDialogComponent implements OnInit {
   myForm: FormGroup;
   values: Array<any> = [];
+  valuesAux: Array<any> = [];
+  dataArray: AttentionHour[] = []
   constructor(private _fb: FormBuilder, public matDialogRef: MatDialogRef<ManageArrayDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private cdRef: ChangeDetectorRef) {
     // Object.assign(this.selectedPatient, data.patient);
     // Object.assign(this.category, data.product.category);
     // console.log(this.selectedPatient);) 
-
+    this.dataArray = data.array;
+    // console.log(data.array)
+    // this.init(data.array, !!data.array.length ? true : false);
+    // this.myForm = this._fb.group({
+    //   array: this._fb.array(data.array)
+    // });
     this.myForm = this._fb.group({
-      array: this._fb.array(data.array),
+      array: this._fb.array([])
     });
   }
+
   ngOnInit(): void {
-    this.addElement();
+    // this.addElement();
+    this.init(this.dataArray, !!this.dataArray.length ? true : false);
+  }
+
+  init(array: AttentionHour[], hasElements: boolean) {
+    console.log(array)
+    if (!hasElements) {
+      this.addElement();
+    }
+    else {
+      array.forEach(element => {
+        this.values.push(element.attentionHour);
+        this.valuesAux.push(element.attentionHour);
+      });
+      array.forEach(element => {
+        this.addElement();
+      });
+    }
   }
 
   getArray(): FormArray {
@@ -51,6 +76,31 @@ export class ManageArrayDialogComponent implements OnInit {
   }
 
   save() {
-    this.matDialogRef.close(this.myForm.value);
+    let hours = this.myForm.value;
+    for (var element of hours.array) {
+      if (element.attentionHour == undefined) {
+        let index = hours.array.indexOf(element);
+        hours.array.splice(index, 1);
+      }
+    }
+    this.matDialogRef.close(this.bubbleSort(hours.array));
+  }
+
+  cancel() {
+    this.matDialogRef.close();
+  }
+
+  bubbleSort(items: AttentionHour[]) {
+    var length = items.length;
+    for (var i = 0; i < length; i++) {
+      for (var j = 0; j < (length - i - 1); j++) {
+        if (items[j].attentionHour > items[j + 1].attentionHour) {
+          var tmp = items[j];
+          items[j] = items[j + 1];
+          items[j + 1] = tmp;
+        }
+      }
+    }
+    return items;
   }
 }

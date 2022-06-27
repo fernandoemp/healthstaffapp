@@ -5,6 +5,7 @@ import { VitalSign } from "./vital-sign.class";
 
 export class Patient {
     id: number | undefined;
+    identityCardNumber: number | undefined;
     firstName: string | undefined;
     lastName: string | undefined;
     address: string | undefined;

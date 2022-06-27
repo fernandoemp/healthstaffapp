@@ -2,16 +2,19 @@
     <div>
         <mat-card-title mat-dialog-title>Add Patient</mat-card-title>
     </div>
-    <form mat-dialog-content [formGroup]="myForm" fxLayout="column" fxLayoutAlign="center center">
+    <form mat-dialog-content [formGroup]="myForm" fxLayout="column" fxLayoutAlign="start center" class="container">
         <mat-tab-group animationDuration="0ms" fxLayout="column" fxLayoutAlign="center center">
             <mat-tab label="Personal Information">
                 <div fxLayout="column" fxLayoutAlign="center center">
                     <!-- <mat-form-field appearance="fill" *ngIf="data.update">
                 <mat-label>Id:</mat-label>
                 <input matInput [disabled]="true"
-                    [value]="selectedPatient.id" name="id">
-            </mat-form-field> -->
-
+                    [value]="selectedPatient.id" name="id"></mat-form-field> -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Identity Card Number</mat-label>
+                        <input matInput [(ngModel)]="selectedPatient.identityCardNumber" name="identityCardNumber"
+                            formControlName="identityCardNumber">
+                    </mat-form-field>
                     <mat-form-field appearance="fill">
                         <mat-label>Name</mat-label>
                         <input matInput [(ngModel)]="selectedPatient.firstName" name="firstName"
@@ -72,7 +75,7 @@
             </mat-tab>
 
             <mat-tab label="Hospital Information">
-                <div fxLayout="column" fxLayoutAlign="center center">
+                <div fxLayout="column" fxLayoutAlign="start center" class="tab2">
                     <mat-form-field appearance="fill">
                         <mat-label>Room</mat-label>
                         <input matInput [(ngModel)]="selectedPatient.hospitalRoom" name="hospitalRoom"
@@ -83,20 +86,52 @@
                         <input matInput [(ngModel)]="selectedPatient.hospitalBed" name="hospitalBed"
                             formControlName="hospitalBed">
                     </mat-form-field>
-                    <div mat-dialog-actions fxLayout="column">
-                        <mat-label>Attetion Hours</mat-label>
-                        <button mat-button class="btn" (click)="addHours(selectedPatient.attentionHours)">Add</button>
+                    <div appearance="fill">
+                        <div fxLayout="column" fxLayoutAlign="center center">
+                            <!-- <mat-form-field appearance="fill" *ngIf="data.update">
+                            <mat-label>Id:</mat-label>
+                            <input matInput [disabled]="true"
+                                [value]="selectedPatient.id" name="id">
+                        </mat-form-field> -->
+                        </div>
+                        <div mat-dialog-actions fxLayout="column">
+                            <mat-label>Attetion Hours</mat-label>
+                            <div class="scroll table-container" *ngIf="!!selectedPatient.attentionHours.length">
+                                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+                                    <!-- <ng-container matColumnDef="id">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> ID </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.id}}
+                                        </td>
+                                    </ng-container> -->
+                                    <ng-container matColumnDef="attentionHour">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Hours
+                                        </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.attentionHour }}
+                                        </td>
+                                    </ng-container>
+                                    <tr mat-header-row class="header" *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                </table>
+                            </div>
+                            <button mat-button class="btn action-hours"
+                                (click)="addHours(selectedPatient.attentionHours)">
+                                <span *ngIf="!selectedPatient.attentionHours.length">
+                                    Add
+                                </span>
+                                <span *ngIf="!!selectedPatient.attentionHours.length">
+                                    Modify
+                                </span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </mat-tab>
         </mat-tab-group>
-        <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
-            <button class="btn-save" mat-button [mat-dialog-close]="{ 'product': selectedPatient, 'confirm':
-                true}" (click)="onClick()" [disabled]="myForm.invalid">Guardar
+        <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center" class="actions">
+            <button class="btn" mat-button (click)="save()">Save
             </button>
-            <button class="btn" mat-button [mat-dialog-close]="{ 'confirm': false}" (click)="onNoClick()">Cancelar
+            <button class="btn" mat-button (click)="cancel()">Cancel
             </button>
         </div>
-
     </form>
 </div>
