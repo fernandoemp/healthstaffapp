@@ -6,15 +6,19 @@
             <div fxLayout fxLayoutGap="2%" fxLayout.lt-sm="column">
                 <mat-form-field>
                     <mat-label>Filter by room</mat-label>
-                    <input matInput (keyup)="applyFilter(inputId.value)" #inputId>
+                    <input matInput (keyup)="applyFilter(inputRoom.value)" #inputRoom>
                 </mat-form-field>
                 <!-- <mat-form-field>
                     <mat-label>Filter by bed</mat-label>
                     <input matInput (keyup)="applyFilter(inputName.value)" #inputName>
                 </mat-form-field>
                -->
-                <mat-label>Show next controls (60 minutes)</mat-label>
-                <mat-checkbox #checkBox [(ngModel)]="test"></mat-checkbox>
+                <!-- <mat-label>Show next controls (60 minutes)</mat-label>
+                <mat-checkbox #checkBox [(ngModel)]="test"></mat-checkbox> -->
+                <mat-form-field>
+                    <mat-label>Filter by Hour</mat-label>
+                    <input matInput (keyup)="applyFilterHours(inputHour.value)" #inputHour>
+                </mat-form-field>
             </div>
 
             <br>
@@ -80,6 +84,9 @@
                             </button> -->
                             <button mat-icon-button class="dark-button btn-option" (click)="delete(element)">
                                 <mat-icon fontSet="far" fontIcon="fa-trash-alt"></mat-icon>
+                            </button>
+                             <button mat-icon-button class="dark-button btn-option" (click)="goToVitalSignsHistory(element)" >
+                                <mat-icon>event_note</mat-icon>
                             </button>
                         </td>
                     </ng-container>

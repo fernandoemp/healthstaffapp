@@ -10,7 +10,6 @@ import { Patient } from '../core/classes/patient.class';
 import { LocalStorageService } from '../core/services/local-storage.service';
 import { PatientService } from '../core/services/patient.service';
 import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
-import { PatientDialogComponent } from '../shared/patient-dialog/patient-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -24,8 +23,6 @@ export class HomeComponent implements OnInit {
 
   displayedColumns: string[];
   dataSource!: MatTableDataSource<Patient>;
-  // categories: CategoryClass[];
-  selectedCategoryName: string;
   // productsSubscription!: Subscription;
   // categoriesSubscription!: Subscription;
   loading: boolean;
@@ -49,7 +46,6 @@ export class HomeComponent implements OnInit {
       'actions',
     ];
     // this.categories = [];
-    this.selectedCategoryName = '';
     this.loading = true;
   }
 
@@ -73,23 +69,25 @@ export class HomeComponent implements OnInit {
     // );
     // console.log(JSON.stringify(this._patientService.getAllPatients()));
     this.dataSource = new MatTableDataSource(this._patientService.getAllPatients());
-    console.log(this._patientService.getAllPatients())
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
     this.loading = false;
   }
 
-  applyFilter(searched: string) {
-    // this.dataSource.filter = searched.trim().toLowerCase();
-    // if (searched != '') {
-    //   this.dataSource.filterPredicate = function (
-    //     data,
-    //     searched: string
-    //   ): boolean {
-    //     return (
-    //       data.id == searched ||
-    //       data.category.name.toLowerCase().includes(searched)
-    //     );
-    //   };
-    // }
+  applyFilter(searched: any) {
+    searched.toLowerCase();
+    this.dataSource.filter = searched.trim().toLowerCase();
+    if (searched != '') {
+      this.dataSource.filterPredicate = function (
+        data,
+        searched: string
+      ): boolean {
+        return (
+          data.identityCardNumber == searched ||
+          data.hospitalRoom == searched || (!!data.lastName ? data.lastName.toLocaleLowerCase().includes(searched) : false)
+        );
+      };
+    }
   }
 
   add() {
@@ -117,7 +115,8 @@ export class HomeComponent implements OnInit {
 
     let id = this.localStorageService.getItem("patientId");
     patient.id = id;
-    this.localStorageService.setItem('patientId', id++);
+    id++;
+    this.localStorageService.setItem('patientId', id);
     this.localStorageService.setItem('selectedPatient', patient);
     this.router.navigate(['patient']);
   }

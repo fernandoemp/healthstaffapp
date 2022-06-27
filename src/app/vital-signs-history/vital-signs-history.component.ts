@@ -79,18 +79,18 @@ export class VitalSignsHistoryComponent implements OnInit {
   }
 
   applyFilter(searched: string) {
-    // this.dataSource.filter = searched.trim().toLowerCase();
-    // if (searched != '') {
-    //   this.dataSource.filterPredicate = function (
-    //     data,
-    //     searched: string
-    //   ): boolean {
-    //     return (
-    //       data.id == searched ||
-    //       data.category.name.toLowerCase().includes(searched)
-    //     );
-    //   };
-    // }
+    console.log(searched)
+    if (searched != '') {
+      this.dataSource.filterPredicate = function (
+        data,
+        searched: string
+      ): boolean {
+        return (
+          data.date.toISOString().slice(0,10) == searched
+        
+        );
+      };
+    }
   }
 
   add() {

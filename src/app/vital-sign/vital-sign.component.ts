@@ -75,18 +75,19 @@ export class VitalSignComponent implements OnInit {
   }
 
   applyFilter(searched: string) {
-    // this.dataSource.filter = searched.trim().toLowerCase();
-    // if (searched != '') {
-    //   this.dataSource.filterPredicate = function (
-    //     data,
-    //     searched: string
-    //   ): boolean {
-    //     return (
-    //       data.id == searched ||
-    //       data.category.name.toLowerCase().includes(searched)
-    //     );
-    //   };
-    // }
+    searched.toLowerCase();
+    this.dataSource.filter = searched.trim().toLowerCase();
+    if (searched != '') {
+      this.dataSource.filterPredicate = function (
+        data,
+        searched: string
+      ): boolean {
+        return (
+          data.identityCardNumber == searched ||
+          data.hospitalRoom == searched || (!!data.lastName ? data.lastName.toLocaleLowerCase().includes(searched) : false)
+        );
+      };
+    }
   }
 
   add() {

@@ -14,7 +14,6 @@ import { AngularMaterialModule } from './core/angular-material/angular-material.
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PatientComponent } from './patient/patient.component';
-import { PatientDialogComponent } from './shared/patient-dialog/patient-dialog.component';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
@@ -33,7 +32,6 @@ import { VitalSignDialogComponent } from './shared/vital-sign-dialog/vital-sign-
     HomeComponent,
     LoginComponent,
     PatientComponent,
-    PatientDialogComponent,
     ConfirmDialogComponent,
     LoadingComponent,
     CareScheduleComponent,

@@ -7,7 +7,7 @@
             <div fxLayout fxLayoutGap="2%" fxLayout.lt-sm="column">
                 <mat-form-field>
                     <mat-label>Filter by date</mat-label>
-                    <input matInput (keyup)="applyFilter(inputId.value)" #inputId>
+                    <input matInput type="date" (keyup)="applyFilter(inputDate.value)" #inputDate>
                 </mat-form-field>
                 <!-- <mat-form-field>
                     <mat-label>Filter by Identify Card Number</mat-label>

@@ -1,15 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Patient } from '../core/classes/patient.class';
+import { LocalStorageService } from '../core/services/local-storage.service';
 import { PatientService } from '../core/services/patient.service';
 import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
 import { ManageArrayDialogComponent } from '../shared/manage-array-dialog/manage-array-dialog.component';
-import { PatientDialogComponent } from '../shared/patient-dialog/patient-dialog.component';
 
 @Component({
   selector: 'app-care-schedule',
@@ -40,7 +41,7 @@ export class CareScheduleComponent implements OnInit {
 
   constructor(
     private patientService: PatientService,
-    public matDialog: MatDialog, private _toastr: ToastrService, private _fb: FormBuilder
+    public matDialog: MatDialog, private _toastr: ToastrService, private _fb: FormBuilder, private localStorageService: LocalStorageService, private router: Router
   ) {
     this.displayedColumns = [
       // "id",
@@ -86,44 +87,37 @@ export class CareScheduleComponent implements OnInit {
   }
 
   applyFilter(searched: string) {
-    // this.dataSource.filter = searched.trim().toLowerCase();
-    // if (searched != '') {
-    //   this.dataSource.filterPredicate = function (
-    //     data,
-    //     searched: string
-    //   ): boolean {
-    //     return (
-    //       data.id == searched ||
-    //       data.category.name.toLowerCase().includes(searched)
-    //     );
-    //   };
-    // }
+    this.dataSource.filter = searched.trim().toLowerCase();
+    if (searched != '') {
+      this.dataSource.filterPredicate = function (
+        data,
+        searched: string
+      ): boolean {
+        return (
+         
+          data.hospitalRoom == searched
+        );
+      };
+    }
   }
 
-  addProduct() {
-    let product = new Patient();
-    const dialogRef = this.matDialog.open(PatientDialogComponent, {
-      disableClose: true, panelClass: 'custom-container-equals-border-radius',
-      data: { title: 'Add Hour', product: product, update: false },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      // if (result !== undefined) {
-      //   this.categories.forEach((element) => {
-      //     if (element.id == result.product.category.id) {
-      //       result.product.category.name = element.name;
-      //     }
-      //   });
-      //   Object.assign(product, result.product);
-      //   this.openConfirmDialog(
-      //     result.product,
-      //     'Agregar el siguiente producto?',
-      //     `Nombre: ${result.product.name} \nCategoria:  ${(result.product.category?.name).toUpperCase() } \nPrecio: $${result.product.price} \nStock: ${result.product.stock} \nDescripcion: ${result.product.description}`,
-      //     1
-      //   );
-      // }
-    });
+  applyFilterHours(searched: string) {
+    this.dataSource.filter = searched.trim().toLowerCase();
+    if (searched != '') {
+      this.dataSource.filterPredicate = function (
+        data,
+        searched: string
+      ): boolean {
+        return (
+          
+          data.attentionHours.some(x => x.attentionHour == searched)
+        );
+      };
+    }
   }
 
+
+  //(!!data.lastName ? data.lastName.toLocaleLowerCase().includes(searched) : false)
   update(patient: Patient) {
     const dialogRef = this.matDialog.open(ManageArrayDialogComponent, {
       disableClose: true, panelClass: 'custom-container-equals-border-radius',
@@ -204,5 +198,10 @@ export class CareScheduleComponent implements OnInit {
         // }
       }
     });
+  }
+
+  goToVitalSignsHistory(patient: Patient){
+    this.localStorageService.setItem("selectedPatient", patient);
+    this.router.navigate(['vital-signs-history']);
   }
 }
