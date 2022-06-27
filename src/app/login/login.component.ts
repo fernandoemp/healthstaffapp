@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { User } from '../core/classes/user.class';
+import { LocalStorageService } from '../core/services/local-storage.service';
 import { UserService } from '../core/services/user.service';
 
 @Component({
@@ -14,13 +15,13 @@ import { UserService } from '../core/services/user.service';
 export class LoginComponent implements OnInit {
   loginSubs?: Subscription;
   error: any = undefined;
-  myForm: FormGroup | undefined;
+  myForm: FormGroup;
 
-  constructor(private _userService: UserService, private _router: Router, private toastr: ToastrService, private _fb: FormBuilder) {
-    // this.myForm = _fb.group({
-    //   username: ['', [Validators.required, Validators.email]],
-    //   password: ['', [Validators.required]]
-    // });
+  constructor(private _userService: UserService, private _router: Router, private toastr: ToastrService, private _fb: FormBuilder, private localStorageService: LocalStorageService) {
+    this.myForm = _fb.group({
+      username: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
+    });
   }
 
   ngOnInit(): void {
@@ -43,9 +44,37 @@ export class LoginComponent implements OnInit {
     //     console.log(error);
     //   }
     // }));
-    if(username == "" && passowrd == ""){
+    if(username == "fernando@openix.com.ar" && passowrd == "fer123"){
       // localStorage.setItem('currentUser', JSON.stringify({id: "0", username: 'fernando', passowrd: '0', email: "fer@gmail.com", first_name: "fer", "last_name": "ema"} as User));
       // this._userService.setUserLoggedIn();
+      let user = new User();
+      user.email = username;
+      user.firstName = "Fernando";
+      user.lastName = "Murguia"
+      user.profession = "Tester"
+      this.localStorageService.setItem('currentUser', user);
+      this._router.navigate(['home']);
+    }
+    if(username == "arias@gmail.com.ar" && passowrd == "fer123"){
+      // localStorage.setItem('currentUser', JSON.stringify({id: "0", username: 'fernando', passowrd: '0', email: "fer@gmail.com", first_name: "fer", "last_name": "ema"} as User));
+      // this._userService.setUserLoggedIn();
+      let user = new User();
+      user.email = username;
+      user.firstName = "Jose";
+      user.lastName = "Arias";
+      user.profession = "Nurse";
+      this.localStorageService.setItem('currentUser', user);
+      this._router.navigate(['home']);
+    } 
+    if(username == "lopez@gmail.com.ar" && passowrd == "fer123"){
+      // localStorage.setItem('currentUser', JSON.stringify({id: "0", username: 'fernando', passowrd: '0', email: "fer@gmail.com", first_name: "fer", "last_name": "ema"} as User));
+      // this._userService.setUserLoggedIn();
+      let user = new User();
+      user.email = username;
+      user.firstName = "Maria";
+      user.lastName = "Lopez";
+      user.profession = "Doctor";
+      this.localStorageService.setItem('currentUser', user);
       this._router.navigate(['home']);
     }
   }

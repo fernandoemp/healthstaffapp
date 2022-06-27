@@ -21,6 +21,8 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { CareScheduleComponent } from './care-schedule/care-schedule.component';
 import { ManageArrayDialogComponent } from './shared/manage-array-dialog/manage-array-dialog.component';
 import { VitalSignComponent } from './vital-sign/vital-sign.component';
+import { VitalSignsHistoryComponent } from './vital-signs-history/vital-signs-history.component';
+import { VitalSignDialogComponent } from './shared/vital-sign-dialog/vital-sign-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { VitalSignComponent } from './vital-sign/vital-sign.component';
     LoadingComponent,
     CareScheduleComponent,
     ManageArrayDialogComponent,
-    VitalSignComponent
+    VitalSignComponent,
+    VitalSignsHistoryComponent,
+    VitalSignDialogComponent
   ],
   imports: [
     AngularMaterialModule,

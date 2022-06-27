@@ -6,56 +6,60 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Patient } from '../core/classes/patient.class';
+import { VitalSign } from '../core/classes/vital-sign.class';
 import { LocalStorageService } from '../core/services/local-storage.service';
 import { PatientService } from '../core/services/patient.service';
 import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
+import { VitalSignDialogComponent } from '../shared/vital-sign-dialog/vital-sign-dialog.component';
 
 @Component({
-  selector: 'app-vital-sign',
-  templateUrl: './vital-sign.component.html',
-  styleUrls: ['./vital-sign.component.scss']
+  selector: 'app-vital-signs-history',
+  templateUrl: './vital-signs-history.component.html',
+  styleUrls: ['./vital-signs-history.component.scss']
 })
-export class VitalSignComponent implements OnInit {
+export class VitalSignsHistoryComponent implements OnInit {
+
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
   displayedColumns: string[];
-  dataSource!: MatTableDataSource<Patient>;
+  dataSource!: MatTableDataSource<VitalSign>;
   // categories: CategoryClass[];
-  selectedCategoryName: string;
   // productsSubscription!: Subscription;
   // categoriesSubscription!: Subscription;
   loading: boolean;
+  selectedPatient = new Patient();
 
   constructor(
     private _patientService: PatientService,
-    public dialog: MatDialog, private _toastr: ToastrService, private router: Router, private localStorageService: LocalStorageService
+    public matDialog: MatDialog, private _toastr: ToastrService, private router: Router, private localStorageService: LocalStorageService
   ) {
     this.displayedColumns = [
       // "id",
 
-      "hospitalRoom",
-      "hospitalBed",
-      "identityCardNumber",
-      "lastName",
-      // "vitalSignsHistory",
+      "date",
+      "bloodPressure",
+      "breathing",
+      "pulse",
+      "temperature",
 
       // 'stock',
       // 'category',
       // 'description',
-      'actions',
+      "observation",
+      "professional"
     ];
     // this.categories = [];
-    this.selectedCategoryName = '';
     this.loading = true;
   }
 
   ngOnInit(): void {
-    this.getAllPatients();
+    this.selectedPatient = this.localStorageService.getItem('selectedPatient');
+    this.getAllHistories();
     // this.getAllCategories();
   }
 
-  getAllPatients() {
+  getAllHistories() {
     // this.productsSubscription = this._patientService.getAllProducts().subscribe(
     //   (response: any) => {
     //     // console.log(JSON.stringify(response));
@@ -69,8 +73,8 @@ export class VitalSignComponent implements OnInit {
     //   }
     // );
     // console.log(JSON.stringify(this._patientService.getAllPatients()));
-    this.dataSource = new MatTableDataSource(this._patientService.getAllPatients());
-    console.log(this._patientService.getAllPatients())
+    this.dataSource = new MatTableDataSource(this.selectedPatient.vitalSigns);
+    console.log(this.selectedPatient.vitalSigns)
     this.loading = false;
   }
 
@@ -90,19 +94,57 @@ export class VitalSignComponent implements OnInit {
   }
 
   add() {
- 
-    let patient = new Patient();
-
-    let id = this.localStorageService.getItem("patientId");
-    patient.id = id;
-    this.localStorageService.setItem('patientId', id++);
-    this.localStorageService.setItem('selectedPatient', patient);
-    this.router.navigate(['patient']);
+    // const dialogRef = this.dialog.open(PatientDialogComponent, {
+    //   disableClose: true, panelClass: 'custom-container-equals-border-radius',
+    //   data: { title: 'Add Patient', product: product, update: false },
+    // });
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   // if (result !== undefined) {
+    //   //   this.categories.forEach((element) => {
+    //   //     if (element.id == result.product.category.id) {
+    //   //       result.product.category.name = element.name;
+    //   //     }
+    //   //   });
+    //   //   Object.assign(product, result.product);
+    //   //   this.openConfirmDialog(
+    //   //     result.product,
+    //   //     'Agregar el siguiente producto?',
+    //   //     `Nombre: ${result.product.name} \nCategoria:  ${(result.product.category?.name).toUpperCase() } \nPrecio: $${result.product.price} \nStock: ${result.product.stock} \nDescripcion: ${result.product.description}`,
+    //   //     1
+    //   //   );
+    //   // }
+    // });
+    let vitalSign = new VitalSign();
+    const dialogRef = this.matDialog.open(VitalSignDialogComponent, {
+      disableClose: true, panelClass: 'custom-container-equals-border-radius',
+      data: { title: 'Add Vital Sign', vitalSign: vitalSign, update: false },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result)
+      if (result != undefined) {
+        this.selectedPatient.vitalSigns.push(result);
+        this.getAllHistories();
+      }
+    });
   }
 
   update(patient: Patient) {
+    // const dialogRef = this.dialog.open(PatientDialogComponent, {
+    //   disableClose: true, panelClass: 'custom-container-equals-border-radius',
+    //   data: { title: 'Modify Patient', patient: patient, update: true },
+    // });
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   if (result !== undefined) {
+    //     this.openConfirmDialog(
+    //       result.patient,
+    //       'Do you want to modify the next patient?',
+    //       `Id: ${result.product.id} \nName: ${result.patient.name} \nCategoria: ${result.product.category?.name} \nPrecio: $${result.product.price} \nStock: ${result.product.stock} \nDescripcion: ${result.product.description}`,
+    //       2
+    //     );
+    //   }
+    // });
     this.localStorageService.setItem('selectedPatient', patient);
-    this.router.navigate(['vital-signs-history']);
+    this.router.navigate(['patient']);
   }
 
   delete(patient: Patient) {
@@ -120,7 +162,7 @@ export class VitalSignComponent implements OnInit {
     content: string,
     option: number
   ): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
       disableClose: true, panelClass: 'custom-container-equals-border-radius',
       data: { title: title, content: content },
     });
@@ -165,20 +207,8 @@ export class VitalSignComponent implements OnInit {
     });
   }
 
-  getAllCategories() {
-    // this.categoriesSubscription = this._patientService
-    //   .getCategoriesProducts()
-    //   .subscribe(
-    //     (response: any) => {
-    //       this.categories = response;
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     }
-    //   );
-  }
-
-  goToVitalSigns() {
+  goToHours() {
     this.router.navigate(['care-schedule']);
   }
+
 }

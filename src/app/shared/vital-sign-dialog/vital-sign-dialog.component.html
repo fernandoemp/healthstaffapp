@@ -1,0 +1,61 @@
+<mat-card class="box" fxLayoutAlign="center center" fxLayout="column">
+    <mat-card-header>
+        <mat-card-title mat-dialog-title>{{data.title}}</mat-card-title>
+    </mat-card-header>
+    <form mat-dialog-content [formGroup]="myForm" fxLayoutAlign="center start">
+        <mat-card-content fxLayout="column" fxLayoutAlign="center center">
+            <!-- <mat-form-field appearance="fill" *ngIf="data.update">
+                <mat-label>Id:</mat-label>
+                <input matInput [disabled]="true"
+                    [value]="vitalSign.id" name="id">
+            </mat-form-field> -->
+            <mat-form-field appearance="fill">
+                <mat-label>Blood Pressure</mat-label>
+                <input matInput [(ngModel)]="vitalSign.bloodPressure" name="bloodPressure"
+                    formControlName="bloodPressure">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Breathing</mat-label>
+                <input matInput [(ngModel)]="vitalSign.breathing" name="breathing" formControlName="breathing">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Pulse</mat-label>
+                <input matInput [(ngModel)]="vitalSign.pulse" name="pulse" formControlName="pulse">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Temperature</mat-label>
+                <input matInput [(ngModel)]="vitalSign.temperature" name="temperature" formControlName="temperature">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Observation</mat-label>
+                <textarea matInput [(ngModel)]="vitalSign.observation" rows="5" formControlName="observation"
+                    name="observation"></textarea>
+            </mat-form-field>
+            <!-- <mat-form-field appearance="fill">
+            <mat-label>Control Hour:</mat-label>
+
+            <input matInput type="time" id="appt" name="appt" min="00:00" max="24:00" name="hours"  formControlName="hours">
+
+        </mat-form-field> -->
+            <!-- <mat-form-field appearance="fill">
+                <mat-label>Select</mat-label>
+                <mat-select [(ngModel)]="category.id" name="category" formControlName="categorySelected"
+                    id="category">
+                    <mat-option  *ngFor="let opc of categories" [value]="opc.id">{{opc.name
+                        | titlecase}}</mat-option>
+                </mat-select>
+            </mat-form-field> -->
+            <!--   <mat-form-field>
+                <mat-label>Descripcion</mat-label>
+                <textarea matInput [(ngModel)]="vitalSign.description" formControlName="description"
+                    name="description"></textarea>
+            </mat-form-field> -->
+            <div mat-dialog-actions>
+                <button class="btn-save" mat-button (click)="save()" [disabled]="myForm.invalid">Save
+                </button>
+                <button class="btn" mat-button [mat-dialog-close]="{ 'confirm': false}" (click)="cancel()">Cancel
+                </button>
+            </div>
+        </mat-card-content>
+    </form>
+</mat-card>

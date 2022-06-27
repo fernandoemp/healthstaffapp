@@ -1,6 +1,13 @@
 <div class="box" fxLayoutAlign="start center" fxLayout="column">
     <div>
-        <mat-card-title mat-dialog-title>Add Patient</mat-card-title>
+        <mat-card-title mat-dialog-title>
+            <span *ngIf="!modify">
+                Add Patient
+            </span>
+            <span *ngIf="modify">
+                Modify Patient
+            </span>
+        </mat-card-title>
     </div>
     <form mat-dialog-content [formGroup]="myForm" fxLayout="column" fxLayoutAlign="start center" class="container">
         <mat-tab-group animationDuration="0ms" fxLayout="column" fxLayoutAlign="center center">

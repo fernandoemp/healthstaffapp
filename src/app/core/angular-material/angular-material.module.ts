@@ -24,6 +24,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 @NgModule({
@@ -51,7 +52,9 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
-    MatTabsModule
+    MatTabsModule,
+    MatChipsModule
+    
   ],
   exports: [
     FlexLayoutModule,
@@ -73,7 +76,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
-    MatTabsModule
+    MatTabsModule,
+    MatChipsModule
   ]
 })
 export class AngularMaterialModule { }

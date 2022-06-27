@@ -18,6 +18,7 @@ export class PatientComponent implements OnInit {
 
   selectedPatient = new Patient();
   test: any | undefined;
+  modify = false;
   myForm = this._fb.group({
     identityCardNumber: ['', [Validators.required]],
     firstName: ['', [Validators.required]],
@@ -54,11 +55,20 @@ export class PatientComponent implements OnInit {
   ngOnInit(): void {
     this.selectedPatient = this.localStorageService.getItem('selectedPatient');
     this.dataSource = new MatTableDataSource(this.selectedPatient.attentionHours);
+    this.isModify();
 
   }
 
   cancel(): void {
     this.router.navigate(['home']);
+  }
+  
+  isModify(){
+    let patients = this.patientService.getAllPatients();
+    let index = patients.findIndex(x => x.id == this.selectedPatient.id);
+    if (index != -1) {
+      this.modify = true;
+    }
   }
 
   save(): void {

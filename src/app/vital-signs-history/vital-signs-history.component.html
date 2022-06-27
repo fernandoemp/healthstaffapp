@@ -1,25 +1,26 @@
 <div fxLayout="row" class="container fadeIn">
     <app-sidenav fxHide.lt-sm class="sidenav" fxFlex="25" fxFlex.gt-sm="20"></app-sidenav>
     <div fxLayout="column" class="managment" fxFlex>
-        <span class="titleSection">Vital Signs</span>
+        <span class="titleSection">Vital Signs History: {{selectedPatient.lastName}}
+            {{selectedPatient.firstName}}</span>
         <div class="content">
             <div fxLayout fxLayoutGap="2%" fxLayout.lt-sm="column">
                 <mat-form-field>
-                    <mat-label>Filter by room</mat-label>
+                    <mat-label>Filter by date</mat-label>
                     <input matInput (keyup)="applyFilter(inputId.value)" #inputId>
                 </mat-form-field>
-                <mat-form-field>
+                <!-- <mat-form-field>
                     <mat-label>Filter by Identify Card Number</mat-label>
                     <input matInput (keyup)="applyFilter(inputName.value)" #inputName>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Filter by Lastname</mat-label>
                     <input matInput (keyup)="applyFilter(inputName.value)" #inputName>
-                </mat-form-field>
+                </mat-form-field> -->
             </div>
-            <!-- <div fxLayout fxLayoutAlign="start center" *ngIf="!loading" class="options">
+            <div fxLayout fxLayoutAlign="start center" *ngIf="!loading" class="options">
                 <button mat-button class="dark-button" (click)="add()">New</button>
-            </div> -->
+            </div>
             <app-loading fxLayoutAlign="center center" *ngIf="loading"></app-loading>
             <div class="scroll table-container" *ngIf="!loading">
                 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
@@ -28,32 +29,50 @@
                         <td mat-cell *matCellDef="let element"> {{element.id}}
                         </td>
                     </ng-container> -->
-                    <ng-container matColumnDef="hospitalRoom">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Room </th>
-                        <td mat-cell *matCellDef="let element"> {{element.hospitalRoom }}
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Date </th>
+                        <td mat-cell *matCellDef="let element"> {{element.date | date: 'M/dd/yy - H:mm'}}
                         </td>
                     </ng-container>
-                    <ng-container matColumnDef="hospitalBed">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Bed </th>
-                        <td mat-cell *matCellDef="let element"> {{element.hospitalBed }}
+                    <ng-container matColumnDef="bloodPressure">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Blood Pressure </th>
+                        <td mat-cell *matCellDef="let element"> {{element.bloodPressure }}
                         </td>
                     </ng-container>
-                    <ng-container matColumnDef="identityCardNumber">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Identity Card Number</th>
-                        <td mat-cell *matCellDef="let element"> {{element.identityCardNumber}} </td>
+                    <ng-container matColumnDef="breathing">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Breathing</th>
+                        <td mat-cell *matCellDef="let element"> {{element.breathing}} </td>
                     </ng-container>
-                    <ng-container matColumnDef="lastName">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Last Name </th>
-                        <td mat-cell *matCellDef="let element"> {{element.lastName | titlecase}}
+                    <ng-container matColumnDef="pulse">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Pulse </th>
+                        <td mat-cell *matCellDef="let element"> {{element.pulse }}
                         </td>
                     </ng-container>
-                    <!-- <ng-container matColumnDef="vitalSignsHistory">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Vital Signs History </th>
+                    <ng-container matColumnDef="temperature">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Temperature </th>
+                        <td mat-cell *matCellDef="let element"> {{element.temperature }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="observation">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Observation </th>
+                        <td mat-cell *matCellDef="let element"> {{element.observation }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="professional">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Professional </th>
+                        <td mat-cell *matCellDef="let element"><span>
+                            <mat-chip class="chip">{{element.professional.profession}}</mat-chip> 
+                            {{element.professional.lastName}} {{element.professional.firstName}}
+                        </span>
+                        </td>
+                    </ng-container>
+                    <!-- <ng-container matColumnDef="attetionHour">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Attention Hours </th>
                         <!-- <td mat-cell *matCellDef="let element">
-                                                <div *ngFor="let hour of element.attentionHours"> {{hour.attentionHour }}</div>
-                                            </td> 
+                            <div *ngFor="let hour of element.attentionHours"> {{hour.attentionHour }}</div>
+                        </td> 
                         <td d mat-cell *matCellDef="let element">
-                            <button mat-button class="btn" (click)="goToVitalSigns()">Show</button>
+                            <button mat-button class="btn" (click)="goToHours()">Show</button>
                         </td>
                     </ng-container> -->
 
@@ -76,7 +95,7 @@
                             <button mat-icon-button class="dark-button btn-option" (click)="update(element)">
                                 <mat-icon>visibility</mat-icon>
                             </button>
-                            <!-- <button mat-icon-button class="dark-button btn-option" >
+                            <!-- <button mat-icon-button class="dark-button btn-option">
                                 <mat-icon fontSet="fas" fontIcon="fa-pen"></mat-icon>
                             </button> -->
                             <button mat-icon-button class="dark-button btn-option" (click)="delete(element)">
@@ -84,6 +103,7 @@
                             </button>
                         </td>
                     </ng-container>
+
                     <tr mat-header-row class="header" *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
@@ -91,7 +111,7 @@
                         <td class="mat-cell" colspan="4">No matches found
                     </tr>
                 </table>
-                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
             </div>
         </div>
 

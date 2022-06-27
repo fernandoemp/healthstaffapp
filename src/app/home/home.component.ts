@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
       "hospitalBed",
       "identityCardNumber",
       "lastName",
-      "attetionHour",
+      "firstName",
 
       // 'stock',
       // 'category',
