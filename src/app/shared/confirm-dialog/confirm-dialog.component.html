@@ -1,23 +1,20 @@
 <mat-card class="box">
-    <mat-card-header>
-      <mat-card-title mat-dialog-title>{{data.title}}</mat-card-title>
-    </mat-card-header>
-  
-    <mat-card-content mat-dialog-content fxLayout="column" fxLayoutAlign="center
+  <mat-card-header>
+    <mat-card-title mat-dialog-title>{{data.title}}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content mat-dialog-content fxLayout="column" fxLayoutAlign="center
       center" class="body">
-      <div class="text" fxLayoutAlign="center start">
-        <span>{{ data.content }}</span>
-      </div>
-  
-      <div mat-dialog-actions fxLayoutAlign="center center">
-        <button mat-button [mat-dialog-close]="true" class="btn-save">Yes
-  
-        </button>
-        <button mat-button [mat-dialog-close]="false" class="btn">No
-  
-        </button>
-      </div>
-    </mat-card-content>
-  
-  </mat-card>
-  
+    <div class="text" fxLayoutAlign="center start">
+      <span>{{ data.content }}</span>
+    </div>
+    <div mat-dialog-actions fxLayoutAlign="center center">
+      <button mat-button [mat-dialog-close]="true" class="btn-save">Yes
+
+      </button>
+      <button mat-button [mat-dialog-close]="false" class="btn">No
+
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -3,20 +3,26 @@
     <div fxLayout="column" class="managment" fxFlex>
         <span class="titleSection">Vital Signs</span>
         <div class="content">
-            <div fxLayout fxLayoutGap="2%" fxLayout.lt-sm="column">
-                <mat-form-field>
-                    <mat-label>Filter by Room</mat-label>
-                    <input matInput (keyup)="applyFilter(inputRoom.value)" #inputRoom>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Filter by Identify Card Number</mat-label>
-                    <input matInput (keyup)="applyFilter(inputIdentityCardNumber.value)" #inputIdentityCardNumber>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Filter by Lastname</mat-label>
-                    <input matInput (keyup)="applyFilter(inputLastName.value)" #inputLastName>
-                </mat-form-field>
-            </div>
+            <mat-card class="example-card">
+                <mat-card-content>
+                    <div fxLayout fxLayoutGap="2%" fxLayout.lt-sm="column">
+                        <mat-form-field>
+                            <mat-label>Filter by Room</mat-label>
+                            <input matInput (keyup)="applyFilter(inputRoom.value)" #inputRoom>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Filter by Identify Card Number</mat-label>
+                            <input matInput (keyup)="applyFilter(inputIdentityCardNumber.value)"
+                                #inputIdentityCardNumber>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Filter by Lastname</mat-label>
+                            <input matInput (keyup)="applyFilter(inputLastName.value)" #inputLastName>
+                        </mat-form-field>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
             <!-- <div fxLayout fxLayoutAlign="start center" *ngIf="!loading" class="options">
                 <button mat-button class="dark-button" (click)="add()">New</button>
             </div> -->

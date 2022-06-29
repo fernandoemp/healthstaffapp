@@ -83,7 +83,7 @@ export class VitalSignComponent implements OnInit {
         searched: string
       ): boolean {
         return (
-          data.identityCardNumber == searched ||
+          data.identityCardNumber?.includes(searched) ||
           data.hospitalRoom == searched || (!!data.lastName ? data.lastName.toLocaleLowerCase().includes(searched) : false)
         );
       };
@@ -91,9 +91,7 @@ export class VitalSignComponent implements OnInit {
   }
 
   add() {
- 
     let patient = new Patient();
-
     let id = this.localStorageService.getItem("patientId");
     patient.id = id;
     this.localStorageService.setItem('patientId', id++);

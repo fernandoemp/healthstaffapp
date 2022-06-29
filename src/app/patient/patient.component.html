@@ -4,19 +4,16 @@
             <span *ngIf="!modify">
                 Add Patient
             </span>
-            <span *ngIf="modify">
-                Modify Patient
+            <span *ngIf="!!modify">
+                Update Patient
             </span>
         </mat-card-title>
     </div>
     <form mat-dialog-content [formGroup]="myForm" fxLayout="column" fxLayoutAlign="start center" class="container">
         <mat-tab-group animationDuration="0ms" fxLayout="column" fxLayoutAlign="center center">
-            <mat-tab label="Personal Information">
+            <mat-tab label="Personal Information" class="test" style="color: white">
                 <div fxLayout="column" fxLayoutAlign="center center">
-                    <!-- <mat-form-field appearance="fill" *ngIf="data.update">
-                <mat-label>Id:</mat-label>
-                <input matInput [disabled]="true"
-                    [value]="selectedPatient.id" name="id"></mat-form-field> -->
+
                     <mat-form-field appearance="fill">
                         <mat-label>Identity Card Number</mat-label>
                         <input matInput [(ngModel)]="selectedPatient.identityCardNumber" name="identityCardNumber"
@@ -51,33 +48,6 @@
                         <input matInput [(ngModel)]="selectedPatient.healthcareSystemId" name="healthcareSystemId"
                             formControlName="healthcareSystemId">
                     </mat-form-field>
-                    <!-- <mat-form-field appearance="fill">
-                <mat-label>Control Hour:</mat-label>
-
-                <input matInput type="time" id="appt" name="appt" min="00:00" max="24:00" name="hours"
-                    formControlName="hours">
-
-            </mat-form-field> -->
-                    <!-- <mat-form-field appearance="fill">
-            <mat-label>Control Hour:</mat-label>
-
-            <input matInput type="time" id="appt" name="appt" min="00:00" max="24:00" name="hours"  formControlName="hours">
-
-        </mat-form-field> -->
-                    <!-- <mat-form-field appearance="fill">
-                <mat-label>Select</mat-label>
-                <mat-select [(ngModel)]="category.id" name="category" formControlName="categorySelected"
-                    id="category">
-                    <mat-option  *ngFor="let opc of categories" [value]="opc.id">{{opc.name
-                        | titlecase}}</mat-option>
-                </mat-select>
-            </mat-form-field> -->
-                    <!--   <mat-form-field>
-                <mat-label>Descripcion</mat-label>
-                <textarea matInput [(ngModel)]="selectedPatient.description" formControlName="description"
-                    name="description"></textarea>
-            </mat-form-field> -->
-
                 </div>
             </mat-tab>
 
@@ -126,7 +96,7 @@
                                     Add
                                 </span>
                                 <span *ngIf="!!selectedPatient.attentionHours.length">
-                                    Modify
+                                    Update
                                 </span>
                             </button>
                         </div>
@@ -135,7 +105,13 @@
             </mat-tab>
         </mat-tab-group>
         <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center" class="actions">
-            <button class="btn" mat-button (click)="save()">Save
+            <button class="btn" mat-button (click)="update()" [disabled]="myForm.invalid">
+                <span *ngIf="!modify">
+                    Add
+                </span>
+                <span *ngIf="!!modify">
+                    Update
+                </span>
             </button>
             <button class="btn" mat-button (click)="cancel()">Cancel
             </button>

@@ -7,10 +7,10 @@ export class VitalSign {
     pulse: string | undefined;
     temperature: string | undefined;
     observation: string | undefined;
-    date: Date;
+    date: string;
     professional: User | undefined;
 
     constructor() {
-        this.date = new Date();
+        this.date = new Date().toISOString().slice(0,10);
     }
 }

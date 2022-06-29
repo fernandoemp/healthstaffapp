@@ -4,20 +4,25 @@
         <span class="titleSection">Vital Signs History: {{selectedPatient.lastName}}
             {{selectedPatient.firstName}}</span>
         <div class="content">
-            <div fxLayout fxLayoutGap="2%" fxLayout.lt-sm="column">
-                <mat-form-field>
-                    <mat-label>Filter by date</mat-label>
-                    <input matInput type="date" (keyup)="applyFilter(inputDate.value)" #inputDate>
-                </mat-form-field>
-                <!-- <mat-form-field>
-                    <mat-label>Filter by Identify Card Number</mat-label>
-                    <input matInput (keyup)="applyFilter(inputName.value)" #inputName>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Filter by Lastname</mat-label>
-                    <input matInput (keyup)="applyFilter(inputName.value)" #inputName>
-                </mat-form-field> -->
-            </div>
+            <mat-card class="example-card">
+                <mat-card-content>
+                    <div fxLayout fxLayoutGap="2%" fxLayout.lt-sm="column">
+                        <mat-form-field>
+                            <mat-label>Filter by date</mat-label>
+                            <input matInput type="date" format (change)="applyFilter(inputDate.value)" #inputDate>
+                        </mat-form-field>
+                        <!-- <mat-form-field>
+                            <mat-label>Filter by Identify Card Number</mat-label>
+                            <input matInput (keyup)="applyFilter(inputName.value)" #inputName>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Filter by Lastname</mat-label>
+                            <input matInput (keyup)="applyFilter(inputName.value)" #inputName>
+                        </mat-form-field> -->
+                    </div>
+                </mat-card-content>
+            </mat-card>
+            <br>
             <div fxLayout fxLayoutAlign="start center" *ngIf="!loading" class="options">
                 <button mat-button class="dark-button" (click)="add()">New</button>
             </div>
@@ -61,34 +66,11 @@
                     <ng-container matColumnDef="professional">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Professional </th>
                         <td mat-cell *matCellDef="let element"><span>
-                            <mat-chip class="chip">{{element.professional.profession}}</mat-chip> 
-                            {{element.professional.lastName}} {{element.professional.firstName}}
-                        </span>
+                                <mat-chip class="chip">{{element.professional.profession}}</mat-chip>
+                                {{element.professional.lastName}} {{element.professional.firstName}}
+                            </span>
                         </td>
                     </ng-container>
-                    <!-- <ng-container matColumnDef="attetionHour">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Attention Hours </th>
-                        <!-- <td mat-cell *matCellDef="let element">
-                            <div *ngFor="let hour of element.attentionHours"> {{hour.attentionHour }}</div>
-                        </td> 
-                        <td d mat-cell *matCellDef="let element">
-                            <button mat-button class="btn" (click)="goToHours()">Show</button>
-                        </td>
-                    </ng-container> -->
-
-                    <!-- 
-            <ng-container matColumnDef="category">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Categoria
-              </th>
-              <td mat-cell *matCellDef="let element"> {{element.category.name |
-                titlecase}} </td>
-            </ng-container>
-            <ng-container matColumnDef="description">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header class="column"> Descripcion
-              </th>
-              <td mat-cell *matCellDef="let element"> {{element.description |
-                titlecase}} </td>
-            </ng-container> -->
                     <ng-container matColumnDef="actions">
                         <th mat-header-cell *matHeaderCellDef> </th>
                         <td mat-cell *matCellDef="let element">

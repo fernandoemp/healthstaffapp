@@ -1,9 +1,84 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .custom-container-equals-border-radius .mat-dialog-container {
-    border-radius: 1vw !important;
-    padding: 0;
+  border-radius: 1vw !important;
+  padding: 0;
+  overflow: initial;
+
+}
+
+.mat-tab-label, .mat-tab-link{
+  color: white !important;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+      opacity: 0;
   }
+  to {
+      opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+.fadeIn {
+  opacity: 0;
+  -webkit-animation: fadeIn ease-in 1;
+  -moz-animation: fadeIn ease-in 1;
+  animation: fadeIn ease-in 1;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-duration: 0.5s;
+  -moz-animation-duration: 0.5s;
+  animation-duration: 1s;
+}
+
+
+ul, ol{
+    list-style: none;
+    text-decoration: none;
+    margin-right: 0;
+    margin-left: 0;
+
+}
+
+a:visited, a:link,  a:focus ,a:hover, a:active{
+    list-style: none;
+    text-decoration: none;
+    outline: none;
+    box-shadow: none;
+    border:none;
+}
+
+.mat-button.mat-primary.mat-button-disabled, .mat-button.mat-accent.mat-button-disabled, .mat-button.mat-warn.mat-button-disabled, .mat-button.mat-button-disabled.mat-button-disabled, .mat-icon-button.mat-primary.mat-button-disabled, .mat-icon-button.mat-accent.mat-button-disabled, .mat-icon-button.mat-warn.mat-button-disabled, .mat-icon-button.mat-button-disabled.mat-button-disabled, .mat-stroked-button.mat-primary.mat-button-disabled, .mat-stroked-button.mat-accent.mat-button-disabled, .mat-stroked-button.mat-warn.mat-button-disabled, .mat-stroked-button.mat-button-disabled.mat-button-disabled
+{
+  color: rgb(134, 123, 123) !important;
+}

@@ -53,34 +53,43 @@ export class LoginComponent implements OnInit {
       user.lastName = "Murguia"
       user.profession = "Tester"
       this.localStorageService.setItem('currentUser', user);
+      this.toastr.info("Welcome " + user.lastName + " " + user.firstName)
       this._router.navigate(['home']);
+    }else{
+      if(username == "arias@gmail.com.ar" && passowrd == "fer123"){
+        // localStorage.setItem('currentUser', JSON.stringify({id: "0", username: 'fernando', passowrd: '0', email: "fer@gmail.com", first_name: "fer", "last_name": "ema"} as User));
+        // this._userService.setUserLoggedIn();
+        let user = new User();
+        user.email = username;
+        user.firstName = "Jose";
+        user.lastName = "Arias";
+        user.profession = "Nurse";
+        this.localStorageService.setItem('currentUser', user);
+        this.toastr.info("Welcome " + user.lastName + " " + user.firstName)
+        this._router.navigate(['home']);
+      } else{
+        if(username == "lopez@gmail.com.ar" && passowrd == "fer123"){
+          // localStorage.setItem('currentUser', JSON.stringify({id: "0", username: 'fernando', passowrd: '0', email: "fer@gmail.com", first_name: "fer", "last_name": "ema"} as User));
+          // this._userService.setUserLoggedIn();
+          let user = new User();
+          user.email = username;
+          user.firstName = "Maria";
+          user.lastName = "Lopez";
+          user.profession = "Doctor";
+          this.localStorageService.setItem('currentUser', user);
+          this.toastr.info("Welcome " + user.lastName + " " + user.firstName)
+          this._router.navigate(['home']);
+        }
+        else{
+          this.toastr.error("Username or password is invalid");
+        }
+      }
     }
-    if(username == "arias@gmail.com.ar" && passowrd == "fer123"){
-      // localStorage.setItem('currentUser', JSON.stringify({id: "0", username: 'fernando', passowrd: '0', email: "fer@gmail.com", first_name: "fer", "last_name": "ema"} as User));
-      // this._userService.setUserLoggedIn();
-      let user = new User();
-      user.email = username;
-      user.firstName = "Jose";
-      user.lastName = "Arias";
-      user.profession = "Nurse";
-      this.localStorageService.setItem('currentUser', user);
-      this._router.navigate(['home']);
-    } 
-    if(username == "lopez@gmail.com.ar" && passowrd == "fer123"){
-      // localStorage.setItem('currentUser', JSON.stringify({id: "0", username: 'fernando', passowrd: '0', email: "fer@gmail.com", first_name: "fer", "last_name": "ema"} as User));
-      // this._userService.setUserLoggedIn();
-      let user = new User();
-      user.email = username;
-      user.firstName = "Maria";
-      user.lastName = "Lopez";
-      user.profession = "Doctor";
-      this.localStorageService.setItem('currentUser', user);
-      this._router.navigate(['home']);
-    }
+    
+   
   }
 
   ngOnDestroy(): void {
-    this.loginSubs?.unsubscribe();
   }
 }
 

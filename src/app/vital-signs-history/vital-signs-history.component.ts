@@ -60,19 +60,6 @@ export class VitalSignsHistoryComponent implements OnInit {
   }
 
   getAllHistories() {
-    // this.productsSubscription = this._patientService.getAllProducts().subscribe(
-    //   (response: any) => {
-    //     // console.log(JSON.stringify(response));
-    //     this.dataSource = new MatTableDataSource(response);
-    //     this.dataSource.paginator = this.paginator;
-    //     this.dataSource.sort = this.sort;
-    //     this.loading = false;
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // );
-    // console.log(JSON.stringify(this._patientService.getAllPatients()));
     this.dataSource = new MatTableDataSource(this.selectedPatient.vitalSigns);
     console.log(this.selectedPatient.vitalSigns)
     this.loading = false;
@@ -81,49 +68,33 @@ export class VitalSignsHistoryComponent implements OnInit {
   applyFilter(searched: string) {
     console.log(searched)
     if (searched != '') {
-      this.dataSource.filterPredicate = function (
-        data,
-        searched: string
-      ): boolean {
-        return (
-          data.date.toISOString().slice(0,10) == searched
-        
-        );
-      };
+      this.dataSource.data = this.selectedPatient.vitalSigns;
+      console.log(this.dataSource.data.filter(e => e.date.toString().slice(0, 10) == searched))
+      this.dataSource.data = this.dataSource.data.filter(e => e.date.toString().slice(0, 10) == searched);
+    }
+    else {
+      this.dataSource.data = this.selectedPatient.vitalSigns;
     }
   }
 
   add() {
-    // const dialogRef = this.dialog.open(PatientDialogComponent, {
-    //   disableClose: true, panelClass: 'custom-container-equals-border-radius',
-    //   data: { title: 'Add Patient', product: product, update: false },
-    // });
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   // if (result !== undefined) {
-    //   //   this.categories.forEach((element) => {
-    //   //     if (element.id == result.product.category.id) {
-    //   //       result.product.category.name = element.name;
-    //   //     }
-    //   //   });
-    //   //   Object.assign(product, result.product);
-    //   //   this.openConfirmDialog(
-    //   //     result.product,
-    //   //     'Agregar el siguiente producto?',
-    //   //     `Nombre: ${result.product.name} \nCategoria:  ${(result.product.category?.name).toUpperCase() } \nPrecio: $${result.product.price} \nStock: ${result.product.stock} \nDescripcion: ${result.product.description}`,
-    //   //     1
-    //   //   );
-    //   // }
-    // });
     let vitalSign = new VitalSign();
     const dialogRef = this.matDialog.open(VitalSignDialogComponent, {
       disableClose: true, panelClass: 'custom-container-equals-border-radius',
       data: { title: 'Add Vital Sign', vitalSign: vitalSign, update: false },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result)
       if (result != undefined) {
         this.selectedPatient.vitalSigns.push(result);
-        this.getAllHistories();
+        let patients = this._patientService.getAllPatients();
+        let index = patients.findIndex(x => x.id == this.selectedPatient.id);
+        if(index != -1){
+          patients.splice(index, 1, this.selectedPatient);
+          this._patientService.updatePatients(patients);
+          this.localStorageService.setItem('selectedPatient', this.selectedPatient);
+          this._toastr.info("Added vital signs");
+          this.getAllHistories();
+        }
       }
     });
   }

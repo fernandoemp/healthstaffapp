@@ -70,7 +70,7 @@ export class ManageArrayDialogComponent implements OnInit {
     this.cdRef.detectChanges();
   }
 
-  removeQuantity(i: number) {
+  remove(i: number) {
     this.getArray().removeAt(i);
     this.values.splice(i, 1)
   }
